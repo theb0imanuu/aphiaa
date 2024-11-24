@@ -1,0 +1,4 @@
+{
+    "appService.defaultWebAppToDeploy": "/subscriptions/fdb14790-7630-4215-a239-35e8e8b2d5fe/resourceGroups/aphiaa/providers/Microsoft.Web/sites/aphiaa",
+    "appService.deploySubpath": "."
+}

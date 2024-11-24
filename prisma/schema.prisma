@@ -1,0 +1,63 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgres"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id          Int           @id @default(autoincrement())
+  email       String        @unique
+  password    String
+  role        String
+  ActivityLog ActivityLog[] // Logs each action performed by the user
+  Session     Session[] // User session data
+  Sales       Sale[] // Sales made by the user
+}
+
+model Inventory {
+  id        Int      @id @default(autoincrement())
+  name      String
+  quantity  Int
+  price     Float
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  Sale      Sale[]
+}
+
+model ActivityLog {
+  id        Int      @id @default(autoincrement())
+  action    String
+  timestamp DateTime @default(now())
+  userId    Int
+  user      User     @relation(fields: [userId], references: [id])
+}
+
+model Session {
+  id        Int      @id @default(autoincrement())
+  userId    Int
+  user      User     @relation(fields: [userId], references: [id])
+  isActive  Boolean  @default(true)
+  createdAt DateTime @default(now())
+  expiresAt DateTime
+}
+
+model Sale {
+  id          Int       @id @default(autoincrement())
+  userId      Int
+  user        User      @relation(fields: [userId], references: [id])
+  amount      Float // The total amount of the sale
+  timestamp   DateTime  @default(now()) // When the sale occurred
+  inventory   Inventory @relation(fields: [inventoryId], references: [id])
+  inventoryId Int // Reference to the Inventory model
+}
+model CustomerInteraction {
+  id        Int      @id @default(autoincrement())
+  time      DateTime @default(now())
+  action    String
+  customer  String?  // Optional: to store customer name or details
+  createdAt DateTime @default(now())
+}
+
