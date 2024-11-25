@@ -32,7 +32,7 @@ Aphiaa is a pharmacy management system designed to streamline inventory manageme
 
 1. **Clone the Repository:**
    ```bash
-   git clone https://github.com/your-username/aphiaa.git
+   git clone https://github.com/theb0imanuu/aphiaa.git
    cd aphiaa
    ```
 
